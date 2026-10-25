@@ -9,7 +9,7 @@ from typing import Any, Protocol
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 from .errors import ProtocolError
-from .logging import get_logger
+from .logging import get_logger, key_fingerprint
 from .models import Mode
 from .parser import short_hex
 
@@ -106,13 +106,7 @@ def make_obfuscated2_handshake(
             "mode": mode.value,
             "dc": dc_id,
             "proto_tag": proto_tag.hex(),
-            "encrypt_key_material": encrypt_key_material.hex(),
-            "encrypt_iv": encrypt_iv.hex(),
-            "decrypt_key_material": decrypt_key_material.hex(),
-            "decrypt_iv": decrypt_iv.hex(),
-            "enc_key": enc_key.hex(),
-            "dec_key": dec_key.hex(),
-            "init_packet": init.hex(),
+            "key_id": key_fingerprint(secret),
         },
     )
 

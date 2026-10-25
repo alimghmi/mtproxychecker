@@ -15,7 +15,7 @@ from .errors import (
     classify_exception,
     public_message,
 )
-from .logging import get_logger
+from .logging import get_logger, key_fingerprint
 from .models import (
     AttemptResult,
     CheckOptions,
@@ -86,13 +86,7 @@ def check_proxy(
             "secret_type": describe_secret(parsed_target.secret),
             "secret_kind": parsed_target.secret.kind.value,
             "faketls_domain": parsed_target.secret.faketls_domain,
-        },
-    )
-    logger.debug(
-        "secret raw",
-        extra={
-            "event": "secret_raw",
-            "secret_raw": parsed_target.secret.raw_secret.hex(),
+            "key_id": key_fingerprint(parsed_target.secret.raw_secret),
         },
     )
     logger.info(

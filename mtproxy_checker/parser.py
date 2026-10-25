@@ -97,7 +97,6 @@ def decode_secret(secret: str) -> ParsedSecret:
         extra={
             "event": "secret_input",
             "secret_length": len(s),
-            "secret_prefix": s[:16],
         },
     )
 
@@ -186,10 +185,6 @@ def decode_secret(secret: str) -> ParsedSecret:
             "secret_encoding": "base64",
             "decoded_len": len(raw),
         },
-    )
-    logger.debug(
-        "secret decoded",
-        extra={"event": "secret_decoded", "decoded_hex": short_hex(raw)},
     )
 
     if len(raw) == 16:

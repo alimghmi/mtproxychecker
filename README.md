@@ -91,6 +91,10 @@ logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 ```
 
+Logs identify a decoded proxy key by `key_id`, the first 12 hexadecimal characters
+of its SHA-256 hash. Equivalent hex/base64 secrets have the same identifier.
+Verbose and trace logs do not include secret bytes or derived cipher keys.
+
 Stable public error messages include:
 
 - `INVALID_INPUT`: invalid proxy URL or missing host/port/secret.

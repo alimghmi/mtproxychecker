@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import logging as py_logging
 import sys
@@ -18,6 +19,10 @@ _BASE_RECORD = py_logging.LogRecord(
     exc_info=None,
 )
 _RESERVED_RECORD_KEYS = set(_BASE_RECORD.__dict__)
+
+
+def key_fingerprint(secret: bytes) -> str:
+    return hashlib.sha256(secret).hexdigest()[:12]
 
 
 def get_logger(name: str | None = None) -> py_logging.Logger:
